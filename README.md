@@ -12,14 +12,34 @@ Build production-grade infrastructure using AWS CDK with Python, following enter
 CDK Python with modular constructs, cross-stack references, comprehensive testing, production-ready patterns.
 
 ## 🏗️ Architecture
+
+### High-Level Architecture
+
+```mermaid
+graph TB
+    subgraph Users
+        Client[Users/Clients]
+    end
+    
+    subgraph AWS Cloud
+        VPC[VPC<br/>Multi-AZ]
+        ALB[Load Balancer<br/>High Availability]
+        EC2[EC2 Instances<br/>Auto Scaling]
+        DB[Database<br/>Multi-AZ]
+        S3[S3 Storage<br/>Encrypted]
+    end
+    
+    subgraph Monitoring
+        CW[CloudWatch<br/>Metrics & Logs]
+    end
+    
+    Client --> ALB
+    ALB --> EC2
+    EC2 --> DB
+    EC2 --> S3
+    EC2 --> CW
 ```
-CDK App
-  ↓
-├── Network Stack (VPC, Subnets)
-├── Compute Stack (EC2, ASG)
-├── Data Stack (RDS, S3)
-└── Monitoring Stack (CloudWatch)
-```
+
 
 ## 🚀 Quick Deploy
 ```bash
